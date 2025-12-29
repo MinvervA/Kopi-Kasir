@@ -1,16 +1,22 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ProtectedRoute } from "./root/ProtectedRoute";
+import { LoginPage } from "./pages/authPages/LoginPage";
+import { SignupPage } from "./pages/authPages/SignupPage";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-      <div className="">
-        <p className="text-4xl text-red-500">text</p>
-      </div>
+      <BrowserRouter>
+        <Routes>
+          // Route Public login dan register
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<SignupPage />} />
+          // route Protected ( harus login )
+          <Route element={<ProtectedRoute />}></Route>
+          <Route path="*" />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
