@@ -20,7 +20,7 @@ type RegisterInput struct {
 }
 
 type LoginInput struct {
-	Username	string		`json:"username" binding:"required"`
+	Email		string		`json:"email" binding:"required"`
 	Password	string		`json:"password" binding:"required"`
 }
 
@@ -71,16 +71,16 @@ func Login(c *gin.Context){
 		})
 		return
 	}
-	fmt.Println(input.Username)
+	fmt.Println(input.Email)
 	fmt.Println(input.Password)
 
-	// melakukan pencarian user di Database berdasarkan username
-	// SQL : SELECT * FROM users WHERE username = "..."
+	// melakukan pencarian user di Database berdasarkan email
+	// SQL : SELECT * FROM users WHERE email = "..."
 	var user models.User
-	if err := config.DB.Where("username = ?",input.Username).First(&user).Error; err != nil{
+	if err := config.DB.Where("email = ?",input.Email).First(&user).Error; err != nil{
 		c.JSON(http.StatusBadRequest,gin.H{
 			"error":true,
-			"message":"Username tidak di temukan!",
+			"message":"email tidak di temukan!",
 		})
 		return
 	}

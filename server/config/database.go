@@ -38,9 +38,11 @@ func ConnectDatabase(){
 	}
 
 	// auto migrate ( membuat tabel otomatis )
-	database.AutoMigrate(
+	if err := database.AutoMigrate(
 		&models.User{},
-	)
+	); err != nil{
+		log.Fatalf("Gagal koneksi DB: %v", err)
+	}
 
 	// memberikan informasi berhasil terhubung ke database dan berhasil migrate
 	DB = database
