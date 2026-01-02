@@ -10,8 +10,20 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers";
+import { loginDefaultValues, loginSchema } from "@/schemas/auth.schema";
 
 export function LoginForm({ className, ...props }) {
+  const form = useForm({
+    resolver: zodResolver(loginSchema),
+    defaultValues: loginDefaultValues,
+  });
+
+  const onSubmit = (values) => {
+    console.log(values);
+  };
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className={``}>
@@ -23,7 +35,7 @@ export function LoginForm({ className, ...props }) {
           <CardDescription>Login with your account</CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={onSubmit}>
             <div className="grid gap-6">
               {/* <div className="flex flex-col gap-4">
                 <Button variant="outline" className="w-full">
